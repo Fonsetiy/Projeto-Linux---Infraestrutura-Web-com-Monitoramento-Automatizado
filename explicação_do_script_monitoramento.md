@@ -1,4 +1,34 @@
 ### Segue a explicação linha por linha do script de monitoramento!
 1. ```#!bin/bash``` -> indica que o script deve ser executado usando o interpretador bash, garante que os comandos sejam interpretados corretamente.
-2. ```PATH=/usr/bin:/bin:/usr/local/bin```
-3. 
+2. ```PATH=/usr/bin:/bin:/usr/local/bin``` -> Define o PATH (variável de ambiente que indica onde o sistema procura executáveis), garante que comandos como ```curl``` e ```date``` sejam encontrados.
+3. ```# CONFIGURAÇÕES``` -> Comentário para marcar o início da seção onde ficam as variáveis configuráveis do script.
+4. ```SITE="http://localhost"``` -> define a URL do site a ser monitorado
+5. ```LOG="/var/log/monitoramento.log"``` -> define o caminho do arquivo de log onde as mensagens de status serão gravadas. O arquivo "monitoramento.log" foi criado e usado para guardar esse histórico.
+6. ```DATA=$(date "%d.%m.%Y %H:%M:%S")``` -> executa o comando para pegar a hora e data atual formatada. %d.%m.%Y → dia.mês.ano | %H:%M:%S → hora:minuto:segundo.
+7. ```DISCORD_WEBHOOK``` -> Token gerado do Webhook
+8. ```TELEGRAM_BOT_TOKEN``` -> Token gerado do Bot do Telegram
+9. ```TELEGRAM_CHAT_ID``` -> ID do chat gerado do Telegram. Do tópico 7 ao 9 são as chaves/tokens e IDs que o script vai usar para enviar notificações. Você deve substituir esses valores pelas suas informações reais. Por questões de segurança, muito cuidado ao expô-los.
+10. ```STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SITE")``` -> Aqu occore a verificação do status do site. O ```curl``` é uma ferramente para fazer requisições HTTP. O parâmetro ```-s```: mostra de forma silenciosa, sem mostrar progresso ou mensagens. O ```-o /dev/null```: descarta a saída do conteúdo da página (não salva). ```-w "%{http_code}"```: escreve na saída do código HTTP retornando. O resultado é capturado e armazenado na variável ```STATUS```.
+11. ```if ["STATUS" != "200"]; then``` -> Testa se o código HTTP não é igual a 200 (que significa “OK”, site funcionando normalmente). Se for diferente, considera que o site está fora do ar (ou inacessível). Se for 200, o site está OK.
+  12. ```MSG="[$DATA] SITE FORA DO AR: $SITE retornou status $STATUS"``` -> Cria uma mensagem formatada com data, url do site e código de erro HTTP.
+  13. ```echo "$MSG" >> "$LOG"``` -> ```echo``` imprime a mensagem e ```>>``` redirecionada a saída para o arquivo ```LOG``` no modo append (acrescenta sem apagar o que já tem)
+  14. ```curl -s -H "Content-Type: application/json" \``` -> usa ```curl``` para enviar um POST para a URL do webhook. ```-s``` silencioso: ```-H "Content-Type: application/json" ```: define o cabeçalho para JSON.
+  15. ```-X POST \``` -> método HTTP POST.
+  16. ```-d "{\"content\": \"$MSG\"}" \``` -> corpo da requisição JSON com a chave ```content``` contendo a mensagem.
+  17. ```"$DISCORD_WEBHOOK"``` -> URL do webhook do Discord.
+  18. ```curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \``` -> Envia uma requisição POST para a API do Telegram para enviar mensagem. Endpoint usado: ```sendMessage``` do bot.
+  19. ```-d "chat_id=$TELEGRAM_CHAT_ID&text=$MSG" ``` -> dados enviados via ```-d```. ```chat_id```: id do chat onde a mensagem será enviafa. ```text```: texto da mensagem (a variável MSG). O token do bot é usado na URL para autenticação.
+  20. ```echo "[$DATA] SITE OK ($STATUS)" >> "$LOG" ``` -> No ```else``` (quando o site está ok). Apenas registra no arquivo de log que o site respondey OK. Não envia nenhuma notificação para o Discord e nem o Telegram.
+
+### Resumo Geral de como funciona:
+1. Script roda
+2. Consulta o site configurado
+3. Verifica o código HTTP retornado
+4. Se não for 200, registra o problema nos logs e envia mensagens de alerta para o Discord e o Telegram.
+5. Se estiver ok, só faz o regristro no log dizendo que está ok.
+6. O log fica para histórico.
+
+### Pontos importantes!
+-> **Permissão:** o scrip precisa de permissão para gravar no arquivo /var/log/monitoramento.log. É nessário acresentar a permissão com o comando ```chmod +x ``` + o caminho na qual o seu arquivo .sh se encontra.
+-> **Substituir os Tokens**: os valores das variáveis do Discord e do Telegram devem ser reais para que as notificações funcionem.
+
