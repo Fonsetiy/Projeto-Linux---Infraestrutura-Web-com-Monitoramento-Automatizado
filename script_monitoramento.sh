@@ -34,3 +34,11 @@ if [ "$STATUS" != "200" ]; then
 else
     echo "[$DATA] SITE OK ($STATUS)" >> "$LOG"
 fi
+
+#VERIFICAÇÃO DO NGINX
+if ! systemctl is-active --quiet nginx; then
+   RESTART_MSG="[$DATA] nginx parado. Reiniciando serviço"
+   echo "$RESTART_MSG" >> "$LOG"
+   systemctl restart nginx
+   echo "[$DATA] nginx reiniciado." >> "$LOG"
+fi
