@@ -19,6 +19,13 @@
   18. ```curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \``` -> Envia uma requisição POST para a API do Telegram para enviar mensagem. Endpoint usado: ```sendMessage``` do bot.
   19. ```-d "chat_id=$TELEGRAM_CHAT_ID&text=$MSG" ``` -> dados enviados via ```-d```. ```chat_id```: id do chat onde a mensagem será enviafa. ```text```: texto da mensagem (a variável MSG). O token do bot é usado na URL para autenticação.
   20. ```echo "[$DATA] SITE OK ($STATUS)" >> "$LOG" ``` -> No ```else``` (quando o site está ok). Apenas registra no arquivo de log que o site respondey OK. Não envia nenhuma notificação para o Discord e nem o Telegram.
+  21. ```if ! systemctl is-active --quiet nginx; then``` -> verifica se o serviço Nginx está rodando. O --quiet faz o comando rodar silenciosamente, sem saída. o ! inverte o resultado: se o Nginx **não** estiver ativo, o if entra no bloco, se estiver ativo, pula o bloco.
+  22. ```RESTART_MSG="[$DATA] nginx parado. Reiniciando serviço"``` -> Monta uma mensagem informativa pra ser gravada no log, com a data e hora.
+  23. ```echo "$RESTART_MSG" >> "$LOG"``` -> Grava a mensagem no arquivo de log definido em $LOG, usando ```>>``` para acrescentar ao final do arquivo, sem apagar dados anteriores.
+  24. ```systemctl restart nginx``` -> comando que reinicia o serviço nginx
+  25. ``` echo "[$DATA] nginx reiniciado." >> "$LOG" ``` -> após reiniciar, grava nos logs a informação de que o nginx foi reiniciado.
+  26. ```fi``` -> fecha o bloco if
+
 
 ### Resumo Geral de como funciona:
 1. Script roda
