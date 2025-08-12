@@ -30,5 +30,21 @@
 
 ### Pontos importantes!
 -> **Permissão:** o scrip precisa de permissão para gravar no arquivo /var/log/monitoramento.log. É nessário acresentar a permissão com o comando ```chmod +x ``` + o caminho na qual o seu arquivo .sh se encontra.
+
 -> **Substituir os Tokens**: os valores das variáveis do Discord e do Telegram devem ser reais para que as notificações funcionem.
+
+## Configuração do Cron
+O Cron é um agendador de tarefas do Linux que permite executar comandos/scripts automaticamente em intervalos regulares.
+1. Abra o crontab para edição:
+```bash
+contrab -e 
+```
+2. Adicione a seguinte linha para executar o script a cada 1 minuto:
+```bash
+* * * * * /caminho/para/seu/script.sh
+```
+**Detalhe importante:** use o caminho absoluto para o script e verifique se ele tem permissão de execução (chmod +x script.sh).
+
+3. Salve e feche o editor. Assim o cron irá rodar o seu script automaticamente a cada minuto.
+
 
