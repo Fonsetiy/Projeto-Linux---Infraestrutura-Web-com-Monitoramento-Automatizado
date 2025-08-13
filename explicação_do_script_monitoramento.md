@@ -25,6 +25,17 @@
   24. ```systemctl restart nginx``` -> comando que reinicia o serviço nginx
   25. ``` echo "[$DATA] nginx reiniciado." >> "$LOG" ``` -> após reiniciar, grava nos logs a informação de que o nginx foi reiniciado.
   26. ```fi``` -> fecha o bloco if
+  27. ```if [ -f "$FLAG" ]; then``` -> Se o arquivo-flag existe, significa que ele estava parado antes e agora voltou
+  28.``` UP_MSG="[$DATA] SERVIDOR DE VOLTA AO AR!!"``` -> Monta a mensagem de "volta ao ar" com timestamp vindo de $DATA
+  29. ```echo "$UP_MSG" >> "$LOG"``` -> Registra a mensagem no arquivo de log definido em $LOG
+  30.```curl -s -H "Content-Type: application/json" \``` ->
+  31. ```-X POST \```
+  32. ```-d "{\"content\": \"$UP_MSG\"}" \```
+  33. ```"$DISCORD_WEBHOOK"```
+  34. ```curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/    sendMessag>``` -> faz uma requisição para a API do Telegram falando para enviar a mensagem
+  35. ```-d "chat_id=$TELEGRAM_CHAT_ID&text=$UP_MSG"``` -> define para quem enviar e qual texto mandar
+  36. ```rm "$FLAG"``` -> remove o arquivo que marcava que o servidor estava fora do ar, para evitar notificações repetidas
+  37. ```fi``` -> fecha o bloco if
 
 
 ### Resumo Geral de como funciona:
