@@ -66,4 +66,8 @@ crontab -e
 
 3. Salve e feche o editor. Assim o cron irá rodar o seu script automaticamente a cada minuto.
 
+## Localização 
+O Script de Monitoramento está salvo em: **/usr/local/bin/monitoramento_site.sh.**
+
+Os logs gerados pelo script estão localizados em: **/var/log/monitoramento.log**
 
