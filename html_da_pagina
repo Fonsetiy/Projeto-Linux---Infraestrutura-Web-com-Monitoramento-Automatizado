@@ -1,26 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-        <meta charset="UTF-8">
-        <title> Infraestrutura Web -  Projeto DevSecOps</title>
-        <style>
-                body {
-                    background-color: #0f172a;
-                        color: #f8fafc;
-                        font-family: Arial, sans-serif;
-                        text-align: center;
-                        padding-top: 10%;
-                   }
-                    h1 {
-                        color: #38bdf8;
-                    }
-                p {
-                    color: #94a3b8;
-                }
-        </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infraestrutura Web - Projeto DevSecOps</title>
+    <style>
+        /* Estilos básicos */
+        :root {
+            --dark-background: #111111;
+            --main-yellow: #FFD700;
+            --light-yellow: #FFFACD;
+            --off-white: #f8fafc;
+        }
+
+        body {
+            background-color: var(--dark-background);
+            color: var(--off-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #222222;
+            padding: 3rem 4rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border: 1px solid #333333;
+            max-width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: var(--main-yellow);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: var(--light-yellow);
+            font-size: 1.2rem;
+            margin-top: 0;
+            font-weight: 300;
+        }
+
+        .company-name {
+            font-size: 1rem;
+            color: #AAAAAA;
+            margin-top: 2rem;
+            font-weight: 600;
+        }
+        
+        /* Animação e Efeitos */
+        h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--main-yellow);
+            margin: 10px auto 0;
+            border-radius: 5px;
+            transform: scaleX(0);
+            animation: expand 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes expand {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .container {
+            opacity: 0;
+            animation: fadeIn 1.2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-        <h1> Ifraestrutura Web</h1>
-        <p>Projeto DevSecOps - Site online com Nginx</p>
+    <div class="container">
+        <h1>Infraestrutura Web</h1>
+        <p class="subtitle">Projeto DevSecOps - Site online com Nginx</p>
+        <p class="company-name">Compass UOL</p>
+    </div>
 </body>
 </html>
