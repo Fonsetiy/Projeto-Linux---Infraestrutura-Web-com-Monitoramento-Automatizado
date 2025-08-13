@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+        <meta charset="UTF-8">
+        <title> Infraestrutura Web -  Projeto DevSecOps</title>
+        <style>
+                body {
+                    background-color: #0f172a;
+                        color: #f8fafc;
+                        font-family: Arial, sans-serif;
+                        text-align: center;
+                        padding-top: 10%;
+                   }
+                    h1 {
+                        color: #38bdf8;
+                    }
+                p {
+                    color: #94a3b8;
+                }
+        </style>
+</head>
+<body>
+        <h1> Ifraestrutura Web</h1>
+        <p>Projeto DevSecOps - Site online com Nginx</p>
+</body>
+</html>
