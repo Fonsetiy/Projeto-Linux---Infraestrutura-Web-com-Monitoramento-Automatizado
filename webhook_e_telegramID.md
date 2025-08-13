@@ -21,3 +21,6 @@
 
 6. Clicando em “Copiar URL do Webhook”, você terá a sua variável "DISCORD_WEBHOOK" na qual você irá usar no seu script.
 7. Por último, salve as alterações feitas clicando em “Salvar”.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+## Como conseguir o chat ID e o token do Telegram
