@@ -34,5 +34,7 @@ Para verificar se a página do Nginx está on, podemos digital no navegador o en
 Para alterar a página web, criei um arquivo nomeado "index.html" dentro do diretório /var/www/html.
 Utilizando o comando ``` nano ```, alterei o arquivo "index.html" para conseguir colocar outras cores e fontes na página fazendo o uso do código HTML.
 
-![Código HTML alterado](https://github.com/user-attachments/assets/c4469a76-06b6-46ee-82f1-1088caaa0720)
+Código HTML alterado
+<img width="1206" height="566" alt="image" src="https://github.com/user-attachments/assets/38ee117a-1cde-4c9f-a5b6-925276c74c85" />
+
 
